@@ -88,3 +88,6 @@ void Game::handleEvents()
 		}
 	}
 }
+
+void Game::quit()
+{}

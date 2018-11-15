@@ -1,5 +1,6 @@
 #include"Player.h"
 #include"Inputhandler.h"
+#include"Game.h"
 
 Player::Player(const LoaderParams* pParams) :
 	SDLGameObject(pParams)
@@ -41,4 +42,10 @@ void Player::handleInput()
 	{
 		m_velocity.setY(2);
 	}
+	if (TheInputHandler::Instance()->getMouseButtonState(LEFT))
+	{
+		m_velocity.setX(1);
+	}
+	Vector2D* vec = TheInputHandler::Instance()->getMousePosition();
+	m_velocity = (*vec - m_position) / 100;
 }

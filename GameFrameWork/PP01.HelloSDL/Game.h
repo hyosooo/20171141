@@ -42,7 +42,7 @@ public:
 	void handleEvents();
 	bool running() { return m_bRunning; }
 	void clean();
-	//void quit();
+	void quit();
 
 
 
