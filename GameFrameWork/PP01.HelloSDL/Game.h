@@ -1,14 +1,14 @@
 #pragma once
 #include "SDL.h"
 
-class Game
+class Gamee
 {
 	SDL_Texture* m_pTexture; // the new SDL_Texture variable
 	SDL_Rect m_sourceRectangle; // 원본 사각형 
 	SDL_Rect m_destinationRectangle; // 대상 사각형 
 public:
-	Game() {}
-	~Game() {}
+	Gamee() {}
+	~Gamee() {}
 	bool init(const char* title, int xpos, int ypos,
 		int width, int height, bool fullscreen);
 	void render();

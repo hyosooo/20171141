@@ -1,8 +1,9 @@
-#include"Game.h"
+#include "SDL_image.h"
+#include "Game.h"
 #include <iostream>
 using namespace std;
 
-bool Game::init(const char*title, int xpos, int ypos, int width, int height, bool fullscreen)
+bool Gamee::init(const char*title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
 
 	if (SDL_Init(SDL_INIT_EVERYTHING) >= 0)
@@ -15,7 +16,10 @@ bool Game::init(const char*title, int xpos, int ypos, int width, int height, boo
 
 		m_bRunning = true;
 
-		SDL_Surface* pTempSurface = SDL_LoadBMP("assets/animate.bmp");
+		//SDL_Surface* pTempSurface = SDL_LoadBMP("assets/animate.bmp");
+		//SDL_Surface* pTempSurface = IMG_Load("assets/animate.png");
+		SDL_Surface* pTempSurface = IMG_Load("assets/animate-alpha.png");
+
 		m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer,
 			pTempSurface);
 		SDL_FreeSurface(pTempSurface);
@@ -28,6 +32,7 @@ bool Game::init(const char*title, int xpos, int ypos, int width, int height, boo
 		m_destinationRectangle.w = m_sourceRectangle.w;
 		m_destinationRectangle.h = m_sourceRectangle.h;
 
+		SDL_SetRenderDrawColor(m_pRenderer, 255, 0, 0, 255);
 
 	}
 	else {
@@ -37,12 +42,12 @@ bool Game::init(const char*title, int xpos, int ypos, int width, int height, boo
 
 }
 
-void Game::update()
+void Gamee::update()
 {
 	m_sourceRectangle.x = 128 * int(((SDL_GetTicks() / 100) % 6));
 }
 
-void Game::render()
+void Gamee::render()
 {
 	SDL_RenderClear(m_pRenderer);
 	SDL_RenderCopy(m_pRenderer, m_pTexture,
@@ -50,7 +55,7 @@ void Game::render()
 	SDL_RenderPresent(m_pRenderer);
 }
 
-void Game::clean()
+void Gamee::clean()
 {
 	std::cout << "cleaning game" << endl;
 	SDL_DestroyWindow(m_pWindow);
@@ -58,7 +63,7 @@ void Game::clean()
 	SDL_Quit();
 }
 
-void Game::handleEvents()
+void Gamee::handleEvents()
 {
 	SDL_Event event;
 	if (SDL_PollEvent(&event))
@@ -73,8 +78,3 @@ void Game::handleEvents()
 		}
 	}
 }
-
-
-
-
-
