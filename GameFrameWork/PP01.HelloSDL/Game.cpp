@@ -50,6 +50,7 @@ void Game::render()
 		m_gameObjects[i]->draw();
 	}
 	SDL_RenderPresent(m_pRenderer);
+
 }
 void Game::update()
 {
