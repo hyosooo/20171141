@@ -3,8 +3,6 @@
 #include <iostream>
 using namespace std;
 
-TextureManager* TextureManager::s_pInstance = 0;
-
 bool TextureManager::load(std::string fileName, std::string id,
 	SDL_Renderer* pRenderer)
 {
@@ -60,3 +58,4 @@ void TextureManager::drawFrame(std::string id, int x, int y, int width,
 
 }
 
+TextureManager* TextureManager::s_pInstance = 0;

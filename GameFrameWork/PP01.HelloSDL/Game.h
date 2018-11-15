@@ -1,8 +1,6 @@
 #pragma once
 #include "SDL.h"
 #include "GameObject.h"
-#include "Player.h"
-#include "Enemy.h"
 #include "SDLGameObject.h"
 #include <vector>
 #include <map>
@@ -44,6 +42,7 @@ public:
 	void handleEvents();
 	bool running() { return m_bRunning; }
 	void clean();
+	//void quit();
 
 
 

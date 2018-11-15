@@ -2,8 +2,10 @@
 #include <SDL_image.h>
 #include <iostream>
 #include"TextureManager.h"
-#include "Enemy.h"
 #include "GameObject.h"
+#include "Inputhandler.h"
+#include "Player.h"
+#include "Enemy.h"
 using namespace std;
 
 Game* Game::s_pInstance = 0;
@@ -32,8 +34,6 @@ bool Game::init(const char* title, int xpos, int ypos,
 			"animate")));
 		m_gameObjects.push_back(new Enemy(new LoaderParams(300, 300, 128, 82,
 			"animate")));
-
-
 	}
 
 	else {
@@ -68,10 +68,13 @@ void Game::clean()
 	SDL_DestroyWindow(m_pWindow);
 	SDL_DestroyRenderer(m_pRenderer);
 	SDL_Quit();
+	TheInputHandler::Instance()->clean();
 }
 
 void Game::handleEvents()
 {
+	TheInputHandler::Instance()->update();
+
 	SDL_Event event;
 	if (SDL_PollEvent(&event))
 	{
