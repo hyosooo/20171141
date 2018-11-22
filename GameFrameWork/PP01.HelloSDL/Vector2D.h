@@ -65,7 +65,7 @@ public:
 	void normalize()
 	{
 		float l = length();
-		if (l > 0) // we never want to attempt to divide by 0
+		if (l > 0)
 		{
 			(*this) *= 1 / l;
 		}

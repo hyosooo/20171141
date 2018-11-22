@@ -17,5 +17,3 @@ protected:
 	int m_currentRow;
 	int m_x;
 };
-
-

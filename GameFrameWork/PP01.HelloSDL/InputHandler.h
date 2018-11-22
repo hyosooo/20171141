@@ -13,9 +13,6 @@ enum mouse_buttons
 
 class InputHandler
 {
-
-
-
 public:
 	~InputHandler() {}
 
@@ -27,8 +24,10 @@ public:
 		}
 		return s_pInstance;
 	}
+
 	void update();
 	void clean();
+
 	void onKeyUp();
 	void onKeyDown();
 	void onMouseMove(SDL_Event& event);
@@ -39,7 +38,6 @@ public:
 	bool getMouseButtonState(int buttonNumber);
 
 
-	//mouse buttion events								
 	Vector2D* m_mousePosition;
 	Vector2D* getMousePosition();
 
@@ -51,7 +49,6 @@ private:
 
 	std::vector<bool> m_mouseButtonStates;
 
-	// mouse motion event					
 
 };
 typedef InputHandler TheInputHandler;

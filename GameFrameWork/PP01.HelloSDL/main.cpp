@@ -16,7 +16,6 @@ int main(int argc, char* argv[])
 		while (TheGame::Instance()->running())
 		{
 			frameStart = SDL_GetTicks();
-			TheGame::Instance()->handleEvents();
 			TheGame::Instance()->update();
 			TheGame::Instance()->render();
 			frameTime = SDL_GetTicks() - frameStart;
