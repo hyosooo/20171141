@@ -2,9 +2,6 @@
 #include <iostream>
 using namespace std;
 
-
-
-
 void GameStateMachine::pushState(GameState *pState)
 {
 	m_gameStates.push_back(pState);
