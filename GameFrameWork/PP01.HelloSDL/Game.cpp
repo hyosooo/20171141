@@ -5,12 +5,14 @@
 #include "MenuState.h"
 #include "PlayState.h"
 #include "Inputhandler.h"
+#include "GameStateMachine.h" 
 
 using namespace std;
 
 Game* Game::s_pInstance = 0;
 PlayState* PlayState::s_pInstance = 0;
 MenuState* MenuState::s_pInstance = 0;
+
 
 bool Game::init(const char* title, int xpos, int ypos,
 	int width, int height, bool fullscreen)

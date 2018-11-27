@@ -21,6 +21,8 @@ public:
 		int currentRow, int currentFrame,
 		SDL_Renderer* pRenderer, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
+	void clearFromTextureMap(std::string id);
+
 	static TextureManager* Instance()
 	{
 		if (s_pInstance == 0)
