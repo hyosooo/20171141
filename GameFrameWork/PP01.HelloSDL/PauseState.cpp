@@ -49,9 +49,9 @@ bool PauseState::onEnter()
 		return false;
 	}
 	GameObject* button1 = new MenuButton(new
-		LoaderParams(200, 100, 200, 80, "mainbutton"), s_pauseToMain);
+		LoaderParams(200, 100, 200, 80,3, "mainbutton"), s_pauseToMain);
 	GameObject* button2 = new MenuButton(new
-		LoaderParams(200, 300, 200, 80, "resumebutton"), s_resumePlay);
+		LoaderParams(200, 300, 200, 80, 3,"resumebutton"), s_resumePlay);
 	m_gameObjects.push_back(button1);
 	m_gameObjects.push_back(button2);
 	std::cout << "entering PauseState\n";
@@ -70,7 +70,7 @@ bool PauseState::onExit()
 	TheTextureManager::Instance()
 		->clearFromTextureMap("mainbutton");
 	// reset the mouse button states to false
-	/*TheInputHandler::Instance()->reset();*/
+	TheInputHandler::Instance()->reset();
 	std::cout << "exiting PauseState\n";
 	return true;
 }

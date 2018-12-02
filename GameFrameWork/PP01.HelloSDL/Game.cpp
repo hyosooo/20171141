@@ -6,6 +6,9 @@
 #include "PlayState.h"
 #include "Inputhandler.h"
 #include "GameStateMachine.h" 
+#include "TextureManager.h"
+#include "Player.h"
+#include "Enemy.h"
 
 using namespace std;
 
@@ -32,15 +35,15 @@ bool Game::init(const char* title, int xpos, int ypos,
 		m_pGameStateMachine = new GameStateMachine();
 		m_pGameStateMachine->changeState(MenuState::Instance());
 
-	/*	if (!TheTextureManager::Instance()->load("assets/animate-alpha.png", "animate", m_pRenderer))
+		if (!TheTextureManager::Instance()->load("assets/animate-alpha.png", "animate", m_pRenderer))
 		{
 			return false;
 		}
 
-		m_gameObjects.push_back(new Player(new LoaderParams(100, 100, 128, 82,
+		m_gameObjects.push_back(new Player(new LoaderParams(100, 100, 128, 82,6,
 			"animate")));
-		m_gameObjects.push_back(new Enemy(new LoaderParams(300, 300, 128, 82,
-			"animate")));*/
+		m_gameObjects.push_back(new Enemy(new LoaderParams(300, 300, 128, 82,6,
+			"animate")));
 	}
 
 	else {
