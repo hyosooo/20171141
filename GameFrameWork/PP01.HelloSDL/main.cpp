@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Game.h"
+#include "TextureManager.h"
 
 const int FPS = 60;
 const float DELAY_TIME = 1000.0f / FPS;
@@ -8,7 +9,12 @@ int main(int argc, char* argv[])
 {
 	Uint32 frameStart, frameTime;
 
-	std::cout << "game init attempt...\n";
+	std::cout << "game init attempt...\n"; 
+
+	/*if (!TheTextureManager::Instance()->load("assets/background.png",
+		"background", TheGame::Instance()->getRenderer()))
+	{*/
+	
 	if (TheGame::Instance()->init("Chapter 19", 100, 100, 640, 480,
 		false))
 	{
@@ -31,6 +37,8 @@ int main(int argc, char* argv[])
 		std::cout << "game init failure - " << SDL_GetError() << "\n";
 		return -1;
 	}
+
+
 	std::cout << "game closing...\n";
 	TheGame::Instance()->clean();
 
