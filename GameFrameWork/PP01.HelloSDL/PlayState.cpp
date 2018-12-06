@@ -16,13 +16,12 @@ const std::string PlayState::s_playID = "PLAY";
 
 void PlayState::update()
 {
-
 	for (int i = 0; i < m_gameObjects.size(); i++)
 	{
 		m_gameObjects[i]->update();
 	}
 
-	if (checkCollision(dynamic_cast<SDLGameObject*>(m_gameObjects[0]), dynamic_cast<SDLGameObject*>(m_gameObjects[1])))
+	if (checkCollision(dynamic_cast<SDLGameObject*>(m_gameObjects[1]), dynamic_cast<SDLGameObject*>(m_gameObjects[2])))
 	{
 		TheGame::Instance()->getStateMachine()->changeState(GameOverState::Instance());
 	}
@@ -65,11 +64,13 @@ bool PlayState::onEnter()
 		new LoaderParams(100, 100, 128, 55, 5,"helicopter2"));
 
 	GameObject* sdlgameobject = new SDLGameObject(
-		new LoaderParams(0, 0, 640, 480, 1, "background"));
-
+		new LoaderParams(0, 0, 640, 480, 0, "background"));
+	
+	m_gameObjects.push_back(sdlgameobject);
 	m_gameObjects.push_back(player);
 	m_gameObjects.push_back(enemy);
-	m_gameObjects.push_back(sdlgameobject);
+
+
 
 	std::cout << "entering PlayState\n";
 	return true;

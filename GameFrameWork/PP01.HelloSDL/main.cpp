@@ -10,12 +10,8 @@ int main(int argc, char* argv[])
 	Uint32 frameStart, frameTime;
 
 	std::cout << "game init attempt...\n"; 
-
-	/*if (!TheTextureManager::Instance()->load("assets/background.png",
-		"background", TheGame::Instance()->getRenderer()))
-	{*/
 	
-	if (TheGame::Instance()->init("Chapter 19", 100, 100, 640, 480,
+	if (TheGame::Instance()->init("Chapter 19", 100, 100, 1600, 900,
 		false))
 	{
 		std::cout << "game init success!\n";
