@@ -2,6 +2,7 @@
 #include "MenuButton.h"
 #include "TextureManager.h"
 #include "PlayState.h"
+#include "AnimatedGraphic.h"
 #include "Game.h"
 #include <iostream>
 using namespace std;
@@ -26,32 +27,41 @@ void MenuState::render()
 
 bool MenuState::onEnter()
 {
-	if (!TheTextureManager::Instance()->load("assets/button.png",
+	if (!TheTextureManager::Instance()->load("assets/button3.png",
 		"playbutton", TheGame::Instance()->getRenderer()))
 	{
 		return false;
 	}
-	if (!TheTextureManager::Instance()->load("assets/exit.png",
+	if (!TheTextureManager::Instance()->load("assets/exit3.png",
 		"exitbutton", TheGame::Instance()->getRenderer()))
 	{
 		return false;
 	}
-	//if (!TheTextureManager::Instance()->load("assets/background.png",
-	//	"background", TheGame::Instance()->getRenderer())) {
-	//	return false;
-	//}
+
+	if (!TheTextureManager::Instance()->load("assets/background3.png",
+		"background", TheGame::Instance()->getRenderer())) {
+		return false;
+	}
+
+	if (!TheTextureManager::Instance()->load("assets/text.png",
+		"text", TheGame::Instance()->getRenderer())) {
+		return false;
+	}
 
 	GameObject* button1 = new MenuButton(
-		new LoaderParams(100, 100, 400, 100,3, "playbutton"),s_menuToPlay);
+		new LoaderParams(85, 400, 280, 70,3, "playbutton"),s_menuToPlay);
 
 	GameObject* button2 = new MenuButton(
-		new LoaderParams(100, 300, 400, 100,3, "exitbutton"),s_exitFromMenu);
+		new LoaderParams(85, 520, 280, 70,3, "exitbutton"),s_exitFromMenu);
 
+	GameObject* gameOverText = new AnimatedGraphic(
+		new LoaderParams(7, 200, 450, 168, 2, "text"), 2);
 
-	//GameObject* sdlgameobject = new SDLGameObject(
-	//	new LoaderParams(0, 0, 640, 480, 0, "background"));
-	//m_gameObjects.push_back(sdlgameobject);
+	GameObject* sdlgameobject = new SDLGameObject(
+		new LoaderParams(0, 0, 450, 800, 0, "background"));
 
+	m_gameObjects.push_back(sdlgameobject);
+	m_gameObjects.push_back(gameOverText);
 	m_gameObjects.push_back(button1);
 	m_gameObjects.push_back(button2);
 

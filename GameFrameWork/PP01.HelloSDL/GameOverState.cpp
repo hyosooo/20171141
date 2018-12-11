@@ -43,33 +43,42 @@ void GameOverState::render()
 
 bool GameOverState::onEnter()
 {
-	if (!TheTextureManager::Instance()->load("assets/gameover.png",
+	if (!TheTextureManager::Instance()->load("assets/gameover2.png",
 		"gameovertext", TheGame::Instance()->getRenderer()))
 	{
 		return false;
 	}
-	if (!TheTextureManager::Instance()->load("assets/main.png",
+	if (!TheTextureManager::Instance()->load("assets/main2.png",
 		"mainbutton", TheGame::Instance()->getRenderer()))
 	{
 		return false;
 	}
-	if (!TheTextureManager::Instance()->load("assets/restart.png",
+	if (!TheTextureManager::Instance()->load("assets/restart2.png",
 		"restartbutton", TheGame::Instance()->getRenderer()))
 	{
 		return false;
 	}
 
+	if (!TheTextureManager::Instance()->load("assets/background3.png",
+		"background", TheGame::Instance()->getRenderer())) {
+		return false;
+	}
+
 	GameObject* gameOverText = new AnimatedGraphic(
-		new  LoaderParams(200, 100, 190, 30, 2,"gameovertext"), 2);
+		new  LoaderParams(101, 200, 247, 39, 2,"gameovertext"), 2);
 
 	GameObject* button1 = new MenuButton(
-		new LoaderParams(200, 200, 200, 80, 3,"mainbutton"),
+		new LoaderParams(125, 300, 200, 80, 3,"mainbutton"),
 		s_gameOverToMain);
 
 	GameObject* button2 = new MenuButton(
-		new LoaderParams(200, 300, 200, 80, 3,"restartbutton"),
+		new LoaderParams(125, 400, 200, 80, 3,"restartbutton"),
 		s_restartPlay);
 
+	GameObject* sdlgameobject = new SDLGameObject(
+		new LoaderParams(0, 0, 450, 800, 0, "background"));
+
+	m_gameObjects.push_back(sdlgameobject);
 	m_gameObjects.push_back(gameOverText);
 	m_gameObjects.push_back(button1);
 	m_gameObjects.push_back(button2);

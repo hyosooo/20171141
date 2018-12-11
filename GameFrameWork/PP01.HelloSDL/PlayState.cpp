@@ -49,22 +49,25 @@ bool PlayState::onEnter()
 		"helicopter", TheGame::Instance()->getRenderer())) {
 		return false;
 	}
+
 	if (!TheTextureManager::Instance()->load("assets/helicopter2.png",
 		"helicopter2", TheGame::Instance()->getRenderer())) {
 		return false;
 	}
-	if (!TheTextureManager::Instance()->load("assets/background.png",
+
+	if (!TheTextureManager::Instance()->load("assets/background3.png",
 		"background", TheGame::Instance()->getRenderer())) {
 		return false;
 	}
 
 	GameObject* player = new Player(
-		new LoaderParams(500, 100, 128, 55, 5,"helicopter"));
+		new LoaderParams(300, 100, 128, 55, 5,"helicopter"));
+
 	GameObject* enemy = new Enemy(
 		new LoaderParams(100, 100, 128, 55, 5,"helicopter2"));
 
 	GameObject* sdlgameobject = new SDLGameObject(
-		new LoaderParams(0, 0, 640, 480, 0, "background"));
+		new LoaderParams(0, 0, 450, 800, 0, "background"));
 	
 	m_gameObjects.push_back(sdlgameobject);
 	m_gameObjects.push_back(player);
