@@ -40,12 +40,12 @@ void PauseState::render()
 
 bool PauseState::onEnter()
 {
-	if (!TheTextureManager::Instance()->load("assets/resume.png",
+	if (!TheTextureManager::Instance()->load("assets/resume2.png",
 		"resumebutton", TheGame::Instance()->getRenderer())) {
 		return false;
 	}
 
-	if (!TheTextureManager::Instance()->load("assets/main.png",
+	if (!TheTextureManager::Instance()->load("assets/main2.png",
 		"mainbutton", TheGame::Instance()->getRenderer())) {
 		return false;
 	}

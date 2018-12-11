@@ -7,7 +7,9 @@
 #include "Enemy.h"
 #include "GameOverState.h"
 #include "SDLGameObject.h"
+#include "Projectile.h"
 #include <iostream>
+#include "AnimatedGraphic.h"
 using namespace std;
 
 const std::string PlayState::s_playID = "PLAY";
@@ -25,6 +27,7 @@ void PlayState::update()
 	{
 		TheGame::Instance()->getStateMachine()->changeState(GameOverState::Instance());
 	}
+
 
 	if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_ESCAPE))
 	{
@@ -45,35 +48,56 @@ bool PlayState::onEnter()
 {
 
 
-	if (!TheTextureManager::Instance()->load("assets/helicopter.png",
-		"helicopter", TheGame::Instance()->getRenderer())) {
+	if (!TheTextureManager::Instance()->load("assets/airplane.png",
+		"helicopter", TheGame::Instance()->getRenderer())) 
+	{
 		return false;
 	}
 
 	if (!TheTextureManager::Instance()->load("assets/helicopter2.png",
-		"helicopter2", TheGame::Instance()->getRenderer())) {
+		"helicopter2", TheGame::Instance()->getRenderer())) 
+	{
+		return false;
+	}
+
+	if (!TheTextureManager::Instance()->load("assets/bullet1.png", 
+		"bullet",TheGame::Instance()->getRenderer()))
+	{
+		return false;
+	}
+
+	if (!TheTextureManager::Instance()->load("assets/star.png",
+		"starr", TheGame::Instance()->getRenderer())) {
 		return false;
 	}
 
 	if (!TheTextureManager::Instance()->load("assets/background3.png",
-		"background", TheGame::Instance()->getRenderer())) {
+		"background", TheGame::Instance()->getRenderer())) 
+	{
 		return false;
 	}
 
+	GameObject* star = new AnimatedGraphic(
+		new LoaderParams(302, 500, 64, 56, 2, "starr"), 2);
+
 	GameObject* player = new Player(
-		new LoaderParams(300, 100, 128, 55, 5,"helicopter"));
+		new LoaderParams(300, 100, 131, 87, 5,"helicopter"));
 
 	GameObject* enemy = new Enemy(
 		new LoaderParams(100, 100, 128, 55, 5,"helicopter2"));
 
-	GameObject* sdlgameobject = new SDLGameObject(
+	GameObject* bullet = new Projectile(
+		new LoaderParams(100, 600, 87, 48, 0, "bullet"));
+
+	GameObject* background = new SDLGameObject(
 		new LoaderParams(0, 0, 450, 800, 0, "background"));
 	
-	m_gameObjects.push_back(sdlgameobject);
+
+	m_gameObjects.push_back(background);
 	m_gameObjects.push_back(player);
 	m_gameObjects.push_back(enemy);
-
-
+	m_gameObjects.push_back(bullet);
+	m_gameObjects.push_back(star);
 
 	std::cout << "entering PlayState\n";
 	return true;
@@ -118,3 +142,31 @@ bool PlayState::checkCollision(SDLGameObject* p1, SDLGameObject* p2)
 
 	return true;
 }
+
+
+//bool PlayState::checkCollision2(SDLGameObject* p2, SDLGameObject* p3)
+//{
+//	float leftC, leftD;
+//	float rightC, rightD;
+//	float topC, topD;
+//	float bottomC, bottomD;
+//
+//	leftC = p2->getPosition().getX();
+//	rightC = p2->getPosition().getX() + p2->getWidth();
+//	topC = p2->getPosition().getY();
+//	bottomC = p2->getPosition().getY() + p2->getHeight();
+//
+//	leftD = p3->getPosition().getX();
+//	rightD = p3->getPosition().getX() + p3->getWidth();
+//	topD = p3->getPosition().getY();
+//	bottomD = p3->getPosition().getY() + p3->getHeight();
+//
+//
+//	if (bottomC <= topD) { return false; }
+//	if (topC >= bottomD) { return false; }
+//	if (rightC <= leftD) { return false; }
+//	if (leftC >= rightD) { return false; }
+//
+//
+//	return true;
+//}

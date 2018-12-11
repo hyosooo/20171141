@@ -26,6 +26,7 @@ public:
 	}
 
 	bool checkCollision(SDLGameObject* p1, SDLGameObject* p2);
+	bool checkCollision2(SDLGameObject* p2, SDLGameObject* p3);
 
 private:
 	
