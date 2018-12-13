@@ -32,9 +32,18 @@ void Projectile::update()
 	SDLGameObject::update();
 }
 
+void Projectile::Shoot(float x, float y)
+{
+	if (drawbullet)
+		return;
+	m_position.setX(x);
+	m_position.setY(y);
+	drawbullet = true;
+}
+
 void Projectile::handleInput()
 {
-	if (!drawbullet) 
+	/*if (!drawbullet) 
 	{
 		Vector2D* vec = TheInputHandler::Instance()->getMousePosition();
 		m_position = *vec;
@@ -43,7 +52,6 @@ void Projectile::handleInput()
 	if (TheInputHandler::Instance()->getMouseButtonState(0))
 	{
 		drawbullet = true;
-	}
-
+	}*/
 }
 

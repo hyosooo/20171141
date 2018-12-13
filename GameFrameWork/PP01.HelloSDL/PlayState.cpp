@@ -14,8 +14,6 @@ using namespace std;
 
 const std::string PlayState::s_playID = "PLAY";
 
-
-
 void PlayState::update()
 {
 	for (int i = 0; i < m_gameObjects.size(); i++)
@@ -28,11 +26,27 @@ void PlayState::update()
 		TheGame::Instance()->getStateMachine()->changeState(GameOverState::Instance());
 	}
 
+	else if (checkCollision(dynamic_cast<SDLGameObject*>(m_gameObjects[3]), dynamic_cast<SDLGameObject*>(m_gameObjects[4])))
+	{
+		TheGame::Instance()->getStateMachine()->changeState(GameOverState::Instance());
+	}
+
+	//else if (checkCollision(dynamic_cast<SDLGameObject*>(m_gameObjects[2]), dynamic_cast<SDLGameObject*>(m_gameObjects[3])))
+	//{
+	//	m_gameObjects.erase(m_gameObjects.begin() + 2);
+	//}
 
 	if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_ESCAPE))
 	{
 		TheGame::Instance()->getStateMachine()->changeState(PauseState::Instance());
 
+	}
+
+	if (TheInputHandler::Instance()->getMouseButtonState(0))
+	{
+		float x = player->getPosition().getX()+55;
+		float y = player->getPosition().getY();
+		projectile->Shoot(x, y);
 	}
 }
 
@@ -47,7 +61,6 @@ void PlayState::render()
 bool PlayState::onEnter()
 {
 
-
 	if (!TheTextureManager::Instance()->load("assets/airplane.png",
 		"helicopter", TheGame::Instance()->getRenderer())) 
 	{
@@ -60,7 +73,7 @@ bool PlayState::onEnter()
 		return false;
 	}
 
-	if (!TheTextureManager::Instance()->load("assets/bullet1.png", 
+	if (!TheTextureManager::Instance()->load("assets/bullet.png", 
 		"bullet",TheGame::Instance()->getRenderer()))
 	{
 		return false;
@@ -78,7 +91,7 @@ bool PlayState::onEnter()
 	}
 
 	GameObject* star = new AnimatedGraphic(
-		new LoaderParams(302, 500, 64, 56, 2, "starr"), 2);
+		new LoaderParams(302, 500, 51, 51, 2, "starr"), 2);
 
 	GameObject* player = new Player(
 		new LoaderParams(300, 100, 131, 87, 5,"helicopter"));
@@ -87,7 +100,7 @@ bool PlayState::onEnter()
 		new LoaderParams(100, 100, 128, 55, 5,"helicopter2"));
 
 	GameObject* bullet = new Projectile(
-		new LoaderParams(100, 600, 87, 48, 0, "bullet"));
+		new LoaderParams(100, 600, 12, 12, 0, "bullet"));
 
 	GameObject* background = new SDLGameObject(
 		new LoaderParams(0, 0, 450, 800, 0, "background"));
@@ -98,6 +111,9 @@ bool PlayState::onEnter()
 	m_gameObjects.push_back(enemy);
 	m_gameObjects.push_back(bullet);
 	m_gameObjects.push_back(star);
+
+	this->player = (Player*)player;
+	this->projectile = (Projectile*)bullet;
 
 	std::cout << "entering PlayState\n";
 	return true;

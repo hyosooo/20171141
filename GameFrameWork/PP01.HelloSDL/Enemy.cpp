@@ -32,3 +32,4 @@ void Enemy::update()
 void Enemy::clean()
 {
 }
+
