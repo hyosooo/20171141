@@ -5,34 +5,40 @@
 
 Enemy::Enemy(const LoaderParams* pParams) : SDLGameObject(pParams)
 {
-	m_velocity.setY(2);
-	//m_velocity.setX(0.001f);
 }
 
 void Enemy::draw()
 {
-	SDLGameObject::draw();
+	if (alive)
+	{
+		SDLGameObject::draw();
+	}
 }
 
 void Enemy::update()
 {
-	m_currentFrame = int(((SDL_GetTicks() / 100) % m_numFrames));
+	if (alive)
+	{
+		m_velocity.setY(m_velocity.getY() +3);
+		m_currentFrame = int(((SDL_GetTicks() / 100) % m_numFrames));
 
-	//if (m_position.getY() > 700)
-	//{
-	//	m_velocity.setY(-2);
-	//}
-	//else if (m_position.getX() > 320)
-	//{
-	//	m_velocity.setX(-2);
-	//}
+		if (m_position.getY() < 800)
+		{
+			m_velocity.setY(3);
+		}
+
+		if (m_position.getY() > 800)
+		{
+			m_position.setX(rand() % 400);
+			m_position.setY(-5);
+		}
+	}
+
 	SDLGameObject::update();
 }
 
 void Enemy::clean()
 {
-	//if (m_position.getY() > 300)
-	//{
-	//	~Enemy();
-	//}
+	alive = false;
+	
 }

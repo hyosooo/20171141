@@ -5,6 +5,7 @@
 #include "Game.h"
 #include "Player.h"
 #include "Enemy.h"
+
 #include "GameOverState.h"
 #include "SDLGameObject.h"
 #include "Projectile.h"
@@ -22,20 +23,56 @@ void PlayState::update()
 		m_gameObjects[i]->update();
 	}
 
-	if (checkCollision(dynamic_cast<SDLGameObject*>(m_gameObjects[1]), dynamic_cast<SDLGameObject*>(m_gameObjects[2])))
-	{
-		TheGame::Instance()->getStateMachine()->changeState(GameOverState::Instance());
-	}
+	
+	if (checkCollision(dynamic_cast<SDLGameObject*>(m_gameObjects[3]), dynamic_cast<SDLGameObject*>(m_gameObjects[1])))
+		{
+			TheGame::Instance()->getStateMachine()->changeState(GameOverState::Instance());
+		}
 
-	//else if (checkCollision(dynamic_cast<SDLGameObject*>(m_gameObjects[4]), dynamic_cast<SDLGameObject*>(m_gameObjects[5])))
-	//{
-	//	SDL_DestroyRenderer;
-	//}
+		else if (checkCollision(dynamic_cast<SDLGameObject*>(m_gameObjects[4]), dynamic_cast<SDLGameObject*>(m_gameObjects[1])))
+		{
+			TheGame::Instance()->getStateMachine()->changeState(GameOverState::Instance());
+		}
+
+		else if (checkCollision(dynamic_cast<SDLGameObject*>(m_gameObjects[5]), dynamic_cast<SDLGameObject*>(m_gameObjects[1])))
+		{
+			TheGame::Instance()->getStateMachine()->changeState(GameOverState::Instance());
+		}
+
+		else if (checkCollision(dynamic_cast<SDLGameObject*>(m_gameObjects[6]), dynamic_cast<SDLGameObject*>(m_gameObjects[1])))
+		{
+			TheGame::Instance()->getStateMachine()->changeState(GameOverState::Instance());
+		}
+
+	
+		else if (checkCollision(dynamic_cast<SDLGameObject*>(m_gameObjects[3]), dynamic_cast<SDLGameObject*>(m_gameObjects[2])))
+		{
+			enemy->clean();
+			projectile->clean();
+		}
+
+		else if (checkCollision(dynamic_cast<SDLGameObject*>(m_gameObjects[4]), dynamic_cast<SDLGameObject*>(m_gameObjects[2])))
+		{
+			enemy->clean();
+			projectile->clean();
+		}
+
+		else if (checkCollision(dynamic_cast<SDLGameObject*>(m_gameObjects[5]), dynamic_cast<SDLGameObject*>(m_gameObjects[2])))
+		{
+			enemy->clean();
+			projectile->clean();
+		}
+
+		else if (checkCollision(dynamic_cast<SDLGameObject*>(m_gameObjects[6]), dynamic_cast<SDLGameObject*>(m_gameObjects[2])))
+		{
+			enemy->clean();
+			projectile->clean();
+		}
+
 
 	if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_ESCAPE))
 	{
 		TheGame::Instance()->getStateMachine()->changeState(PauseState::Instance());
-
 	}
 
 	if (TheInputHandler::Instance()->getMouseButtonState(0))
@@ -86,19 +123,20 @@ bool PlayState::onEnter()
 		return false;
 	}
 
-	GameObject* star = new AnimatedGraphic(
-		new LoaderParams(302, 500, 51, 51, 2, "starr"), 2);
-
 	GameObject* player = new Player(
 		new LoaderParams(200, 600, 131, 87, 5,"helicopter"));
 
-	GameObject* enemy2 = new Enemy(
-		new LoaderParams(rand() % 400 + 1, 100, 78, 65, 3, "helicopter2"));
-
-
-
 	GameObject* enemy = new Enemy(
-		new LoaderParams( rand() % 400 + 1,-100, 78, 65, 3,"helicopter2"));
+		new LoaderParams( rand() % 400 ,-100, 78, 65, 3,"helicopter2"));
+
+	GameObject* enemy1 = new Enemy(
+		new LoaderParams(rand() % 400, -300, 78, 65, 3, "helicopter2"));
+
+	GameObject* enemy2 = new Enemy(
+		new LoaderParams(rand() % 400, -500, 78, 65, 3, "helicopter2"));
+
+	GameObject* enemy3 = new Enemy(
+		new LoaderParams(rand() % 400, -800, 78, 65, 3, "helicopter2"));
 
 	GameObject* bullet = new Projectile(
 		new LoaderParams(100, 600, 12, 12, 0, "bullet"));
@@ -109,13 +147,16 @@ bool PlayState::onEnter()
 
 	m_gameObjects.push_back(background);
 	m_gameObjects.push_back(player);
-	m_gameObjects.push_back(enemy);
-	m_gameObjects.push_back(enemy2);
 	m_gameObjects.push_back(bullet);
-	m_gameObjects.push_back(star);
+	m_gameObjects.push_back(enemy);
+	m_gameObjects.push_back(enemy1);
+	m_gameObjects.push_back(enemy2);
+	m_gameObjects.push_back(enemy3);
 
 	this->player = (Player*)player;
 	this->projectile = (Projectile*)bullet;
+	this->enemy = (Enemy*)enemy;
+
 
 	std::cout << "entering PlayState\n";
 	return true;
@@ -160,31 +201,3 @@ bool PlayState::checkCollision(SDLGameObject* p1, SDLGameObject* p2)
 
 	return true;
 }
-
-
-//bool PlayState::checkCollision2(SDLGameObject* p2, SDLGameObject* p3)
-//{
-//	float leftC, leftD;
-//	float rightC, rightD;
-//	float topC, topD;
-//	float bottomC, bottomD;
-//
-//	leftC = p2->getPosition().getX();
-//	rightC = p2->getPosition().getX() + p2->getWidth();
-//	topC = p2->getPosition().getY();
-//	bottomC = p2->getPosition().getY() + p2->getHeight();
-//
-//	leftD = p3->getPosition().getX();
-//	rightD = p3->getPosition().getX() + p3->getWidth();
-//	topD = p3->getPosition().getY();
-//	bottomD = p3->getPosition().getY() + p3->getHeight();
-//
-//
-//	if (bottomC <= topD) { return false; }
-//	if (topC >= bottomD) { return false; }
-//	if (rightC <= leftD) { return false; }
-//	if (leftC >= rightD) { return false; }
-//
-//
-//	return true;
-//}

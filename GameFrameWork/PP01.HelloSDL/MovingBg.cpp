@@ -25,7 +25,7 @@ void MovingBg::update()
 
 	if (m_position.getY() >= -2400)
 	{
-		m_velocity.setY(20);
+		m_velocity.setY(5);
 	}
 	if (m_position.getY() > 0)
 	{

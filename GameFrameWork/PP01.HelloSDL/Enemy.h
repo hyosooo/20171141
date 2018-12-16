@@ -9,5 +9,5 @@ public:
 	virtual void update();
 	virtual void clean();
 
-	//~Enemy();
+	bool alive=true;
 };
