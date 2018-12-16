@@ -11,4 +11,10 @@ public:
 	void clean();
 	
 	AnimatedGraphic(const LoaderParams* pParams, int animSpeed);
+
+
+protected:
+
+	int m_numFrames = 2;
+
 };

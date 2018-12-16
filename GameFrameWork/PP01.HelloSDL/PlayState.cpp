@@ -10,6 +10,7 @@
 #include "Projectile.h"
 #include <iostream>
 #include "AnimatedGraphic.h"
+#include "MovingBg.h"
 using namespace std;
 
 const std::string PlayState::s_playID = "PLAY";
@@ -26,14 +27,9 @@ void PlayState::update()
 		TheGame::Instance()->getStateMachine()->changeState(GameOverState::Instance());
 	}
 
-	else if (checkCollision(dynamic_cast<SDLGameObject*>(m_gameObjects[3]), dynamic_cast<SDLGameObject*>(m_gameObjects[4])))
-	{
-		TheGame::Instance()->getStateMachine()->changeState(GameOverState::Instance());
-	}
-
-	//else if (checkCollision(dynamic_cast<SDLGameObject*>(m_gameObjects[2]), dynamic_cast<SDLGameObject*>(m_gameObjects[3])))
+	//else if (checkCollision(dynamic_cast<SDLGameObject*>(m_gameObjects[4]), dynamic_cast<SDLGameObject*>(m_gameObjects[5])))
 	//{
-	//	m_gameObjects.erase(m_gameObjects.begin() + 2);
+	//	SDL_DestroyRenderer;
 	//}
 
 	if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_ESCAPE))
@@ -67,7 +63,7 @@ bool PlayState::onEnter()
 		return false;
 	}
 
-	if (!TheTextureManager::Instance()->load("assets/helicopter2.png",
+	if (!TheTextureManager::Instance()->load("assets/airplane2.png",
 		"helicopter2", TheGame::Instance()->getRenderer())) 
 	{
 		return false;
@@ -84,7 +80,7 @@ bool PlayState::onEnter()
 		return false;
 	}
 
-	if (!TheTextureManager::Instance()->load("assets/background3.png",
+	if (!TheTextureManager::Instance()->load("assets/background4.png",
 		"background", TheGame::Instance()->getRenderer())) 
 	{
 		return false;
@@ -94,21 +90,27 @@ bool PlayState::onEnter()
 		new LoaderParams(302, 500, 51, 51, 2, "starr"), 2);
 
 	GameObject* player = new Player(
-		new LoaderParams(300, 100, 131, 87, 5,"helicopter"));
+		new LoaderParams(200, 600, 131, 87, 5,"helicopter"));
+
+	GameObject* enemy2 = new Enemy(
+		new LoaderParams(rand() % 400 + 1, 100, 78, 65, 3, "helicopter2"));
+
+
 
 	GameObject* enemy = new Enemy(
-		new LoaderParams(100, 100, 128, 55, 5,"helicopter2"));
+		new LoaderParams( rand() % 400 + 1,-100, 78, 65, 3,"helicopter2"));
 
 	GameObject* bullet = new Projectile(
 		new LoaderParams(100, 600, 12, 12, 0, "bullet"));
 
-	GameObject* background = new SDLGameObject(
-		new LoaderParams(0, 0, 450, 800, 0, "background"));
+	GameObject* background = new MovingBg(
+		new LoaderParams(0, -2400, 450, 3200, 1, "background"));
 	
 
 	m_gameObjects.push_back(background);
 	m_gameObjects.push_back(player);
 	m_gameObjects.push_back(enemy);
+	m_gameObjects.push_back(enemy2);
 	m_gameObjects.push_back(bullet);
 	m_gameObjects.push_back(star);
 
